@@ -22,9 +22,9 @@
   "author": "Ruben Hakopian <ruben.hakopian@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@kubevious/ui-components": "^1.0.208",
+    "@kubevious/ui-components": "^1.0.214",
     "@kubevious/ui-framework": "^1.0.59",
-    "@kubevious/ui-middleware": "^1.0.58",
+    "@kubevious/ui-middleware": "^1.0.59",
     "bootstrap": "^5.0.0",
     "classnames": "^2.2.6",
     "markdown-to-jsx": "^7.1.7",
@@ -74,7 +74,7 @@
   "resolutions": {
     "the-lodash": "^2.0.9",
     "@kubevious/ui-framework": "^1.0.59",
-    "@kubevious/ui-components": "^1.0.208",
-    "@kubevious/ui-middleware": "^1.0.58"
+    "@kubevious/ui-components": "^1.0.214",
+    "@kubevious/ui-middleware": "^1.0.59"
   }
 }

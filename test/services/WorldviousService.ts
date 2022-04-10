@@ -10,21 +10,13 @@ import {
     WorldviousFeedbackSubmitData
 } from '@kubevious/ui-middleware/dist/services/worldvious';
 
-import { TEST_FEEDBACK_QUESTIONS, TEST_MESSAGE_NOTIFICATION, TEST_NEW_VERSION } from './mock/responses';
-
 export class WorldviousService implements IWorldviousService {
 
     private _items : WorldviousNotificationItem[] = [];
 
-    constructor(empty?: boolean)
+    constructor(items: WorldviousNotificationItem[])
     {
-        if (empty) {
-            return;
-        }
-
-        this._items.push(TEST_NEW_VERSION);
-        this._items.push(TEST_FEEDBACK_QUESTIONS);
-        this._items.push(TEST_MESSAGE_NOTIFICATION);
+        this._items = _.clone(items);
     }
 
     getNotificationInfo(): Promise<WorldviousNotificationsInfo>

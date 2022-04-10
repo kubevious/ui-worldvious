@@ -5,6 +5,9 @@ import { WorldviousService } from '../../test/services/WorldviousService';
 
 import { UpdatesPage } from './';
 
+import { TEST_FEEDBACK_QUESTIONS, TEST_MESSAGE_NOTIFICATION, TEST_NEW_VERSION } from '../../test/services/mock/responses';
+
+
 export default {
     title: 'Updates Page',
     component: UpdatesPage
@@ -14,7 +17,13 @@ export default {
 export const Default: Story = () => {
 
     app.registerService({ kind: 'worldvious' }, () => {
-        return new WorldviousService();
+        return new WorldviousService(
+            [
+                TEST_FEEDBACK_QUESTIONS,
+                TEST_MESSAGE_NOTIFICATION,
+                TEST_NEW_VERSION
+            ]
+        );
     });
 
     return (
@@ -32,7 +41,7 @@ export const Default: Story = () => {
 export const Empty: Story = () => {
     
     app.registerService({ kind: 'worldvious' }, () => {
-        return new WorldviousService(true);
+        return new WorldviousService([]);
     });
 
     return (

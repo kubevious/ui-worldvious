@@ -8,6 +8,8 @@ import { app } from '@kubevious/ui-framework/dist';
 
 import { WorldviousService } from './services/WorldviousService';
 
+import { TEST_FEEDBACK_QUESTIONS, TEST_MESSAGE_NOTIFICATION, TEST_NEW_VERSION } from './services/mock/responses';
+
 
 const renderComponent = (): RenderResult => render(<UpdatesPage />);
 
@@ -15,7 +17,13 @@ describe('UpdatesPage', () => {
     test('test-01', async () => {
 
         app.registerService({ kind: 'worldvious' }, () => {
-            return new WorldviousService();
+            return new WorldviousService(
+                [
+                    TEST_FEEDBACK_QUESTIONS,
+                    TEST_MESSAGE_NOTIFICATION,
+                    TEST_NEW_VERSION
+                ]
+            );
         });
         
         const { findByTestId } = renderComponent();

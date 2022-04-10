@@ -1,6 +1,6 @@
 
 export type UserAnswer = {
     id: string
-    value?: string[]
+    value?: any[]
     hasValue: boolean
 }

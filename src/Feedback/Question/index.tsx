@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import _ from "the-lodash"
 import cx from "classnames"
 
@@ -21,15 +21,29 @@ export interface QuestionProps
 
 export const Question : FC<QuestionProps> = ({ question, answer, isMissingAnswer, updateAnswer }) => {
 
+    const [hoverStars, setHoverStars] = useState<Record<string, boolean>>({});
+
     const currentValues = answer?.value ?? [];
+    const currentValue = _.first(currentValues);
 
-    const handleInputChange = (value : string) => {
+    const handleInputChange = (value : any) => {
 
-        if (_.isNotNullOrUndefined(value) && value.length > 0) {
-            updateAnswer([value]);
-        } else {
-            updateAnswer([]);
+        if (_.isNotNullOrUndefined(value)) {
+            if (_.isString(value)) {
+                if (value.length > 0) 
+                {
+                    updateAnswer([value]);
+                    return;
+                }
+            }
+            else 
+            {
+                updateAnswer([value]);
+                return;
+            }
         }
+
+        updateAnswer([]);
 
     }
 
@@ -59,23 +73,44 @@ export const Question : FC<QuestionProps> = ({ question, answer, isMissingAnswer
                 </div>);
 
             case WorldviousFeedbackQuestionKind.rate:
-                return (
-                    
-                    <div
-                        role="group"
-                        className={styles.rateStars}
-                        onChange={(e : any) => handleInputChange(e?.target?.value ?? null)}
-                    >
-                        {[5, 4, 3, 2, 1].map((val) => (
-                            <input key={val}
-                                type="radio"
-                                id={`star${val}`}
-                                name={question.id}
-                                value={val}
-                            />
-                        ))}
-                    </div>
-                );
+                {
+                    const hoverValues = _.keys(hoverStars).map(x => parseInt(x));
+                    const hoverValue = _.max(hoverValues) ?? 0;
+
+                    return (
+                        <div
+                            className={styles.rateStars}
+                        >
+                            {/* {JSON.stringify(hoverStars)} */}
+                            {[1, 2, 3, 4, 5].map((val) => (
+                                <span key={val} 
+                                      onClick={() => handleInputChange(val)}
+                                      onMouseEnter={() => {
+                                        const dict = _.clone(hoverStars);
+                                        dict[val] = true;
+                                        setHoverStars(dict);
+                                      }}
+                                      onMouseLeave={() => {
+                                        const dict = _.clone(hoverStars);
+                                        delete dict[val];
+                                        setHoverStars(dict);
+                                      }}
+                                      onMouseOut={() => {
+                                        const dict = _.clone(hoverStars);
+                                        delete dict[val];
+                                        setHoverStars(dict);
+                                      }}
+                                      className={cx(styles.star,
+                                        {
+                                            [styles.hoverStar] : (_.isNotNullOrUndefined(hoverValue) && (val <= hoverValue)),
+                                            [styles.checkedStar] : (_.isNotNullOrUndefined(currentValue) && (val <= currentValue)),
+                                        }
+                                    )}
+                                    /> 
+                            ))}
+                        </div>
+                    );
+                }
 
             case WorldviousFeedbackQuestionKind.single_select:
                 return <div className={styles.buttonsContainer}>

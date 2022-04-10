@@ -19,7 +19,6 @@
     display: contents;
 }
 
-
 .buttonsContainer {
     display: flex;
     flex-direction: row;
@@ -40,8 +39,7 @@
     text-align: center;
 }
 .selectButton:hover {
-    color: black;
-    background: #ffc107;
+    background: #333333;
 }
 .selectButton:active, .selectButton:focus {
     outline: none;
@@ -49,52 +47,40 @@
 }
 
 .selectButtonSelected  {
-    color: black;
     background: #ffc107;
     border: 1px solid #ffc107;
     outline: none;
 }
 .selectButtonSelected:hover {
-    background: #ffc107aa;
-    color: white;
+    background: #ffc107;
 }
 
 
 .rateStars {
     display: flex;
     flex-direction: row;
-    direction: rtl;
     justify-content: center;
-    gap: 10px;
+    gap: 0px;
 }
-.rateStars input {
+.star {
     white-space: nowrap;
     cursor: pointer;
     font-size: 40px;
     color: #ccc;
-    width: 40px;
+    width: 50px;
     height: 60px;
     visibility: hidden;
 }
-.rateStars input:before {
+.star:before {
     content: "★";
     visibility: visible;
 }
 
-.rateStars > input:checked ~ input,
-.rateStars > input:checked {
+.hoverStar {
+    color: #fbe07b;
+}
+
+.checkedStar {
     color: #ffc700;
 }
 
-.rateStars:not(:checked) > input:hover,
-.rateStars:not(:checked) > input:hover ~ input {
-    color: #deb217;
-}
-
-.rateStars > input:checked + input:hover,
-.rateStars > input:checked + input:hover ~ input,
-.rateStars > input:checked ~ input:hover,
-.rateStars > input:checked ~ input:hover ~ input,
-.rateStars > input:hover ~ input:checked ~ input {
-    color: #c59b08;
-}
